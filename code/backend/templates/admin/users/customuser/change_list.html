@@ -1,0 +1,378 @@
+{% extends "admin/change_list.html" %}
+
+{% block extrastyle %}
+  {{ block.super }}
+  <style>
+    .quick-edit-trigger {
+      min-width: 88px;
+      border-radius: 8px;
+      border: 0;
+      cursor: pointer;
+      background: linear-gradient(135deg, #60a5fa, #2563eb);
+      color: #fff;
+      font-weight: 600;
+      box-shadow: 0 10px 20px rgba(37, 99, 235, 0.18);
+    }
+
+    .quick-edit-trigger:hover {
+      opacity: 0.92;
+    }
+
+    .quick-edit-modal {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(15, 23, 42, 0.28);
+      z-index: 9999;
+      padding: 20px;
+    }
+
+    .quick-edit-modal.is-open {
+      display: flex;
+    }
+
+    .quick-edit-card {
+      width: min(560px, 100%);
+      border-radius: 26px;
+      background: #fff;
+      box-shadow: 0 32px 80px rgba(15, 23, 42, 0.18);
+      overflow: hidden;
+    }
+
+    .quick-edit-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px 26px 18px;
+      background: linear-gradient(180deg, #f8fbff, #eef5ff);
+      border-bottom: 1px solid #e5edf7;
+    }
+
+    .quick-edit-head h3 {
+      margin: 0;
+      font-size: 24px;
+      color: #0f172a;
+    }
+
+    .quick-edit-head p {
+      margin: 6px 0 0;
+      color: #64748b;
+      font-size: 13px;
+    }
+
+    .quick-edit-close {
+      width: 38px;
+      height: 38px;
+      border: 0;
+      border-radius: 12px;
+      background: #fff;
+      color: #334155;
+      cursor: pointer;
+      font-size: 20px;
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+    }
+
+    .quick-edit-body {
+      padding: 24px 26px 26px;
+    }
+
+    .quick-edit-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .quick-edit-field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .quick-edit-field.full {
+      grid-column: 1 / -1;
+    }
+
+    .quick-edit-field label {
+      color: #334155;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .quick-edit-field input,
+    .quick-edit-field select,
+    .quick-edit-field textarea {
+      width: 100%;
+      border: 1px solid #d7e1ec;
+      border-radius: 12px;
+      padding: 12px 14px;
+      font-size: 14px;
+      background: #f8fafc;
+      box-sizing: border-box;
+    }
+
+    .quick-edit-field textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    .quick-edit-check {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 6px;
+      color: #334155;
+      font-weight: 600;
+    }
+
+    .quick-edit-check input {
+      width: 16px;
+      height: 16px;
+    }
+
+    .quick-edit-error {
+      display: none;
+      margin: 0 0 16px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: #fef2f2;
+      color: #b91c1c;
+      font-size: 14px;
+    }
+
+    .quick-edit-error.is-open {
+      display: block;
+    }
+
+    .quick-edit-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .quick-edit-actions button {
+      min-width: 108px;
+      height: 42px;
+      border-radius: 12px;
+      border: 0;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .quick-edit-cancel {
+      background: #eef2f7;
+      color: #334155;
+    }
+
+    .quick-edit-submit {
+      background: linear-gradient(135deg, #60a5fa, #2563eb);
+      color: #fff;
+    }
+
+    .quick-edit-submit[disabled] {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+
+    @media (max-width: 640px) {
+      .quick-edit-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+  {{ block.super }}
+
+  <div id="quick-edit-modal" class="quick-edit-modal">
+    <div class="quick-edit-card">
+      <div class="quick-edit-head">
+        <div>
+          <h3>编辑用户信息</h3>
+          <p>直接修改用户资料，无需跳转详情页。</p>
+        </div>
+        <button type="button" class="quick-edit-close" data-action="close">×</button>
+      </div>
+      <div class="quick-edit-body">
+        <div id="quick-edit-error" class="quick-edit-error"></div>
+        <form id="quick-edit-form">
+          {% csrf_token %}
+          <div class="quick-edit-grid">
+            <div class="quick-edit-field">
+              <label for="quick-edit-username">用户名</label>
+              <input id="quick-edit-username" name="username" type="text" required>
+            </div>
+            <div class="quick-edit-field">
+              <label for="quick-edit-email">邮箱</label>
+              <input id="quick-edit-email" name="email" type="email">
+            </div>
+            <div class="quick-edit-field">
+              <label for="quick-edit-phone">手机号</label>
+              <input id="quick-edit-phone" name="phone" type="text">
+            </div>
+            <div class="quick-edit-field">
+              <label for="quick-edit-role">角色</label>
+              <select id="quick-edit-role" name="role"></select>
+            </div>
+            <div class="quick-edit-field full">
+              <label for="quick-edit-bio">个人简介</label>
+              <textarea id="quick-edit-bio" name="bio"></textarea>
+            </div>
+            <div class="quick-edit-field full">
+              <label class="quick-edit-check">
+                <input id="quick-edit-is-active" name="is_active" type="checkbox">
+                <span>账号启用</span>
+              </label>
+            </div>
+          </div>
+          <div class="quick-edit-actions">
+            <button type="button" class="quick-edit-cancel" data-action="close">取消</button>
+            <button type="submit" id="quick-edit-submit" class="quick-edit-submit">保存修改</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (() => {
+      const modal = document.getElementById('quick-edit-modal')
+      const form = document.getElementById('quick-edit-form')
+      const errorBox = document.getElementById('quick-edit-error')
+      const submitButton = document.getElementById('quick-edit-submit')
+      const roleSelect = document.getElementById('quick-edit-role')
+      let currentUrl = ''
+
+      if (!modal || !form) {
+        return
+      }
+
+      const fields = {
+        username: document.getElementById('quick-edit-username'),
+        email: document.getElementById('quick-edit-email'),
+        phone: document.getElementById('quick-edit-phone'),
+        role: roleSelect,
+        bio: document.getElementById('quick-edit-bio'),
+        is_active: document.getElementById('quick-edit-is-active'),
+      }
+
+      const openModal = () => modal.classList.add('is-open')
+      const closeModal = () => {
+        modal.classList.remove('is-open')
+        errorBox.classList.remove('is-open')
+        errorBox.textContent = ''
+        currentUrl = ''
+      }
+
+      const showError = (message) => {
+        errorBox.textContent = message
+        errorBox.classList.add('is-open')
+      }
+
+      const fillRoleOptions = (choices, current) => {
+        roleSelect.innerHTML = ''
+        choices.forEach((item) => {
+          const option = document.createElement('option')
+          option.value = item.value
+          option.textContent = item.label
+          if (item.value === current) {
+            option.selected = true
+          }
+          roleSelect.appendChild(option)
+        })
+      }
+
+      const fillForm = (data) => {
+        fields.username.value = data.username || ''
+        fields.email.value = data.email || ''
+        fields.phone.value = data.phone || ''
+        fields.bio.value = data.bio || ''
+        fields.is_active.checked = !!data.is_active
+        fillRoleOptions(data.role_choices || [], data.role)
+      }
+
+      document.addEventListener('click', async (event) => {
+        const trigger = event.target.closest('.quick-edit-trigger')
+        const close = event.target.closest('[data-action="close"]')
+
+        if (close || event.target === modal) {
+          closeModal()
+          return
+        }
+
+        if (!trigger) {
+          return
+        }
+
+        currentUrl = trigger.dataset.url
+        errorBox.classList.remove('is-open')
+        errorBox.textContent = ''
+        submitButton.disabled = true
+        openModal()
+
+        try {
+          const response = await fetch(currentUrl, {
+            headers: {
+              'X-Requested-With': 'XMLHttpRequest'
+            },
+            credentials: 'same-origin'
+          })
+          const data = await response.json()
+          if (!response.ok) {
+            throw new Error(data.error || '加载用户信息失败')
+          }
+          fillForm(data)
+        } catch (error) {
+          showError(error.message || '加载用户信息失败')
+        } finally {
+          submitButton.disabled = false
+        }
+      })
+
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault()
+        if (!currentUrl) {
+          return
+        }
+
+        errorBox.classList.remove('is-open')
+        errorBox.textContent = ''
+        submitButton.disabled = true
+
+        try {
+          const payload = {
+            username: fields.username.value.trim(),
+            email: fields.email.value.trim(),
+            phone: fields.phone.value.trim(),
+            role: fields.role.value,
+            bio: fields.bio.value.trim(),
+            is_active: fields.is_active.checked,
+          }
+
+          const response = await fetch(currentUrl, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-CSRFToken': form.querySelector('[name=csrfmiddlewaretoken]').value,
+              'X-Requested-With': 'XMLHttpRequest'
+            },
+            credentials: 'same-origin',
+            body: JSON.stringify(payload)
+          })
+          const data = await response.json()
+          if (!response.ok) {
+            throw new Error(data.error || '保存失败')
+          }
+          window.location.reload()
+        } catch (error) {
+          showError(error.message || '保存失败')
+        } finally {
+          submitButton.disabled = false
+        }
+      })
+    })()
+  </script>
+{% endblock %}

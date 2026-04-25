@@ -1,0 +1,199 @@
+body.ruoyi-admin.change-list #content-main {
+  width: 100% !important;
+}
+
+body.ruoyi-admin.change-list .object-tools {
+  margin: 0 0 18px !important;
+  padding: 0 !important;
+  float: none !important;
+  display: flex;
+  justify-content: flex-end;
+}
+
+body.ruoyi-admin.change-list .object-tools a {
+  background: #409eff !important;
+  border: 1px solid #409eff !important;
+  color: #fff !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+  padding: 9px 16px !important;
+  font-weight: 700;
+}
+
+body.ruoyi-admin.change-list #changelist {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  gap: 18px;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+body.ruoyi-admin.change-list .changelist-form-container {
+  min-width: 0;
+}
+
+body.ruoyi-admin.change-list #toolbar,
+body.ruoyi-admin.change-list .actions {
+  background: #ffffff !important;
+  border: 1px solid #e8edf4 !important;
+  border-radius: 12px !important;
+  padding: 14px 16px !important;
+  margin-bottom: 14px !important;
+  box-shadow: 0 8px 24px rgba(31, 45, 61, 0.04);
+}
+
+body.ruoyi-admin.change-list #toolbar form,
+body.ruoyi-admin.change-list #toolbar #searchbar {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+body.ruoyi-admin.change-list #toolbar input[type="text"],
+body.ruoyi-admin.change-list #toolbar input[type="search"],
+body.ruoyi-admin.change-list #toolbar select,
+body.ruoyi-admin.change-list .actions select {
+  height: 38px !important;
+  background: #f8fbff !important;
+  border: 1px solid #dce6f3 !important;
+  color: #34455b !important;
+  border-radius: 8px !important;
+  padding: 0 12px !important;
+}
+
+body.ruoyi-admin.change-list #toolbar input[type="submit"],
+body.ruoyi-admin.change-list .actions button,
+body.ruoyi-admin.change-list .actions .button,
+body.ruoyi-admin.change-list .actions input[type="submit"] {
+  height: 38px !important;
+  background: #409eff !important;
+  border: 1px solid #409eff !important;
+  color: #fff !important;
+  border-radius: 8px !important;
+  padding: 0 16px !important;
+  font-weight: 700;
+}
+
+body.ruoyi-admin.change-list .actions label,
+body.ruoyi-admin.change-list .actions span,
+body.ruoyi-admin.change-list #toolbar label {
+  color: #7f8ea3 !important;
+}
+
+body.ruoyi-admin.change-list .results {
+  background: #ffffff !important;
+  border: 1px solid #e8edf4 !important;
+  border-radius: 14px !important;
+  overflow: hidden;
+  box-shadow: 0 10px 24px rgba(31, 45, 61, 0.04);
+}
+
+body.ruoyi-admin.change-list .results table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+  background: transparent !important;
+}
+
+body.ruoyi-admin.change-list .results thead th {
+  background: #f7faff !important;
+  color: #506176 !important;
+  border-bottom: 1px solid #e7edf5 !important;
+  border-right: 0 !important;
+  padding: 14px 12px !important;
+  font-weight: 700;
+}
+
+body.ruoyi-admin.change-list .results tbody td,
+body.ruoyi-admin.change-list .results tbody th {
+  background: #ffffff !important;
+  color: #243245 !important;
+  border-bottom: 1px solid #eef2f7 !important;
+  border-right: 0 !important;
+  padding: 14px 12px !important;
+}
+
+body.ruoyi-admin.change-list .results tbody tr:hover td,
+body.ruoyi-admin.change-list .results tbody tr:hover th {
+  background: #f9fbff !important;
+}
+
+body.ruoyi-admin.change-list .results a {
+  color: #2f7fd8 !important;
+}
+
+body.ruoyi-admin.change-list .paginator {
+  background: #ffffff !important;
+  border: 1px solid #e8edf4 !important;
+  border-radius: 12px !important;
+  padding: 12px 14px !important;
+  margin-top: 14px !important;
+  color: #7f8ea3 !important;
+}
+
+body.ruoyi-admin.change-list .paginator a:link,
+body.ruoyi-admin.change-list .paginator a:visited {
+  color: #2f7fd8 !important;
+}
+
+body.ruoyi-admin.change-list #changelist-filter {
+  background: #ffffff !important;
+  border: 1px solid #e8edf4 !important;
+  border-radius: 14px !important;
+  padding: 0 !important;
+  align-self: start;
+  position: sticky;
+  top: 88px;
+  box-shadow: 0 10px 24px rgba(31, 45, 61, 0.04);
+}
+
+body.ruoyi-admin.change-list #changelist-filter h2 {
+  margin: 0 !important;
+  padding: 14px 16px !important;
+  background: #f7faff !important;
+  color: #243245 !important;
+  border-bottom: 1px solid #e7edf5 !important;
+  font-size: 15px !important;
+}
+
+body.ruoyi-admin.change-list #changelist-filter h3,
+body.ruoyi-admin.change-list #changelist-filter details summary {
+  color: #7f8ea3 !important;
+  padding: 12px 16px 6px !important;
+  margin: 0 !important;
+}
+
+body.ruoyi-admin.change-list #changelist-filter ul {
+  margin: 0 !important;
+  padding: 0 16px 12px 28px !important;
+}
+
+body.ruoyi-admin.change-list #changelist-filter li {
+  margin: 0 0 8px !important;
+  color: #506176 !important;
+}
+
+body.ruoyi-admin.change-list #changelist-filter a {
+  color: #2f7fd8 !important;
+}
+
+body.ruoyi-admin.change-list .help,
+body.ruoyi-admin.change-list .small,
+body.ruoyi-admin.change-list .quiet {
+  color: #7f8ea3 !important;
+}
+
+body.ruoyi-admin.change-list input[type="checkbox"] {
+  accent-color: #409eff;
+}
+
+@media (max-width: 1200px) {
+  body.ruoyi-admin.change-list #changelist {
+    grid-template-columns: 1fr;
+  }
+
+  body.ruoyi-admin.change-list #changelist-filter {
+    position: static;
+  }
+}

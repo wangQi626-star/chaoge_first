@@ -1,0 +1,27 @@
+{% extends "admin/base_site.html" %}
+
+{% block bodyclass %}{{ block.super }} dashboard{% endblock %}
+
+{% block content_title %}
+<div class="ruoyi-page-head">
+    <div>
+        <h1>首页</h1>
+        <p>后台仅保留用户管理和简历管理两个核心功能。</p>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="home-grid">
+    <a href="{% url 'admin:users_customuser_changelist' %}" class="home-card">
+        <div class="home-card-kicker">Users</div>
+        <div class="home-card-title">用户管理</div>
+        <div class="home-card-desc">查看用户账号、搜索用户信息，并管理平台注册用户。</div>
+    </a>
+    <a href="{% url 'admin:resumes_resume_changelist' %}" class="home-card">
+        <div class="home-card-kicker">Resumes</div>
+        <div class="home-card-title">简历管理</div>
+        <div class="home-card-desc">查看用户生成的简历内容、模板信息和导出结果。</div>
+    </a>
+</div>
+{% endblock %}

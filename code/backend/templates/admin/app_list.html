@@ -1,0 +1,43 @@
+{% load i18n %}
+
+{% if app_list %}
+  <div class="ruoyi-app-grid">
+    {% for app in app_list %}
+      <section class="ruoyi-app-card">
+        <div class="ruoyi-app-card-head">
+          <h3>{{ app.name }}</h3>
+          <a href="{{ app.app_url }}" class="ruoyi-app-enter">{% translate 'Open' %}</a>
+        </div>
+        <div class="ruoyi-app-card-body">
+          {% for model in app.models %}
+            <div class="ruoyi-model-row{% if model.admin_url in request.path|urlencode %} current-model{% endif %}">
+              <div class="ruoyi-model-main">
+                {% if model.admin_url %}
+                  <a href="{{ model.admin_url }}" class="ruoyi-model-name"{% if model.admin_url in request.path|urlencode %} aria-current="page"{% endif %}>{{ model.name }}</a>
+                {% else %}
+                  <span class="ruoyi-model-name">{{ model.name }}</span>
+                {% endif %}
+              </div>
+              <div class="ruoyi-model-actions">
+                {% if model.add_url %}
+                  <a href="{{ model.add_url }}" class="action-chip action-add">{% translate 'Add' %}</a>
+                {% endif %}
+                {% if model.admin_url %}
+                  {% if model.view_only %}
+                    <a href="{{ model.admin_url }}" class="action-chip action-view">{% translate 'View' %}</a>
+                  {% else %}
+                    <a href="{{ model.admin_url }}" class="action-chip action-edit">{% translate 'Change' %}</a>
+                  {% endif %}
+                {% endif %}
+              </div>
+            </div>
+          {% empty %}
+            <p class="empty-hint">{% translate 'None available' %}</p>
+          {% endfor %}
+        </div>
+      </section>
+    {% endfor %}
+  </div>
+{% else %}
+  <p class="empty-hint">当前没有可展示的管理模块。</p>
+{% endif %}

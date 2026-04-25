@@ -1,0 +1,24 @@
+{% load i18n %}
+{% url 'admin:index' as admin_home_url %}
+{% url 'admin:users_customuser_changelist' as users_url %}
+{% url 'admin:resumes_resume_changelist' as resumes_url %}
+
+<nav id="nav-sidebar" class="ruoyi-sidebar-nav" aria-label="{% translate 'Sidebar' %}">
+  <div class="ruoyi-menu-title">菜单导航</div>
+  <div class="ruoyi-menu-scroll">
+    <div class="ruoyi-menu-items fixed-menu">
+      <a href="{{ admin_home_url }}" class="ruoyi-menu-item{% if request.path == admin_home_url %} is-active{% endif %}">
+        <span class="menu-dot"></span>
+        <span class="menu-label">首页</span>
+      </a>
+      <a href="{{ users_url }}" class="ruoyi-menu-item{% if request.path|slice:':13' == '/admin/users/' %} is-active{% endif %}">
+        <span class="menu-dot"></span>
+        <span class="menu-label">用户管理</span>
+      </a>
+      <a href="{{ resumes_url }}" class="ruoyi-menu-item{% if request.path|slice:':15' == '/admin/resumes/' %} is-active{% endif %}">
+        <span class="menu-dot"></span>
+        <span class="menu-label">简历管理</span>
+      </a>
+    </div>
+  </div>
+</nav>

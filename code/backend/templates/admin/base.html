@@ -1,0 +1,100 @@
+{% load i18n static %}<!DOCTYPE html>
+{% get_current_language as LANGUAGE_CODE %}{% get_current_language_bidi as LANGUAGE_BIDI %}
+<html lang="{{ LANGUAGE_CODE|default:'zh-hans' }}" dir="{{ LANGUAGE_BIDI|yesno:'rtl,ltr,auto' }}">
+<head>
+<title>{% block title %}{% endblock %}</title>
+<link rel="stylesheet" href="{% block stylesheet %}{% static 'admin/css/base.css' %}{% endblock %}">
+{% if LANGUAGE_BIDI %}<link rel="stylesheet" href="{% block stylesheet_rtl %}{% static 'admin/css/rtl.css' %}{% endblock %}">{% endif %}
+{% block dark-mode-vars %}
+  <link rel="stylesheet" href="{% static 'admin/css/dark_mode.css' %}">
+  <script src="{% static 'admin/js/theme.js' %}" defer></script>
+{% endblock %}
+{% block extrastyle %}{% endblock %}
+{% block extrahead %}{% endblock %}
+{% block responsive %}
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'admin/css/responsive.css' %}">
+  {% if LANGUAGE_BIDI %}<link rel="stylesheet" href="{% static 'admin/css/responsive_rtl.css' %}">{% endif %}
+{% endblock %}
+{% block blockbots %}<meta name="robots" content="NONE,NOARCHIVE">{% endblock %}
+</head>
+<body class="{% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %}" data-admin-utc-offset="{% now 'Z' %}">
+<a href="#content-start" class="skip-to-content-link">{% translate 'Skip to main content' %}</a>
+
+<div id="container" class="ruoyi-shell">
+  {% if not is_popup and request.resolver_match.url_name != 'login' %}
+  <aside class="ruoyi-sidebar-shell">
+    <div class="ruoyi-sidebar-brand">
+      {% block branding %}{% endblock %}
+    </div>
+    {% if has_permission and is_nav_sidebar_enabled %}
+      {% block nav-sidebar %}
+        {% include "admin/nav_sidebar.html" %}
+      {% endblock %}
+    {% endif %}
+  </aside>
+  {% endif %}
+
+  <div class="ruoyi-main-shell">
+    {% if not is_popup and request.resolver_match.url_name != 'login' %}
+    {% block header %}
+    <header id="header" class="ruoyi-topbar">
+      <div class="ruoyi-topbar-left">
+        <div class="ruoyi-topbar-title">{% block content_header_title %}后台工作区{% endblock %}</div>
+      </div>
+      {% block usertools %}
+      {% if has_permission %}
+      <div id="user-tools" class="ruoyi-topbar-tools">
+        <form id="logout-form" method="post" action="{% url 'admin:logout' %}">
+          {% csrf_token %}
+          <button type="submit" class="top-link danger-link">退出登录</button>
+        </form>
+      </div>
+      {% endif %}
+      {% endblock %}
+    </header>
+    {% endblock %}
+    {% endif %}
+
+    <main class="ruoyi-workspace">
+      {% if not is_popup and request.resolver_match.url_name != 'login' %}
+      {% block nav-breadcrumbs %}
+      <nav class="ruoyi-breadcrumbs" aria-label="{% translate 'Breadcrumbs' %}">
+        {% block breadcrumbs %}
+          <a href="{% url 'admin:index' %}">{% translate 'Home' %}</a>
+          {% if title %}<span>/</span><span>{{ title }}</span>{% endif %}
+        {% endblock %}
+      </nav>
+      {% endblock %}
+      {% endif %}
+
+      <div id="content-start" class="ruoyi-page" tabindex="-1">
+        {% block messages %}
+          {% if messages %}
+            <ul class="messagelist">{% for message in messages %}
+              <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message|capfirst }}</li>
+            {% endfor %}</ul>
+          {% endif %}
+        {% endblock messages %}
+
+        <div id="content" class="ruoyi-page-card {% block coltype %}colM{% endblock %}">
+          {% block pretitle %}{% endblock %}
+          {% block content_title %}{% if title %}<h1>{{ title }}</h1>{% endif %}{% endblock %}
+          {% block content_subtitle %}{% if subtitle %}<h2>{{ subtitle }}</h2>{% endif %}{% endblock %}
+          {% block content %}
+            {% block object-tools %}{% endblock %}
+            {{ content }}
+          {% endblock %}
+          {% block sidebar %}{% endblock %}
+          <br class="clear">
+        </div>
+
+        {% block footer %}<div id="footer"></div>{% endblock %}
+      </div>
+    </main>
+  </div>
+</div>
+
+{% block extrajs %}{% endblock %}
+</body>
+</html>

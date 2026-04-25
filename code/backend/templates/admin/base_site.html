@@ -1,0 +1,31 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block title %}{% if subtitle %}{{ subtitle }} | {% endif %}{{ title }} | 简历管理后台{% endblock %}
+
+{% block dark-mode-vars %}{% endblock %}
+
+{% block extrastyle %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'admin/css/ruoyi_admin.css' %}">
+{% endblock %}
+
+{% block bodyclass %}{{ block.super }} ruoyi-admin{% endblock %}
+
+{% block branding %}
+<div class="ruoyi-brand">
+    <div class="ruoyi-brand-mark">R</div>
+    <div class="ruoyi-brand-text">
+        <strong>简历管理后台</strong>
+        <span>Resume Admin Console</span>
+    </div>
+</div>
+{% endblock %}
+
+{% block content_header_title %}简历管理后台{% endblock %}
+
+{% block footer %}
+<div id="footer">
+    <span>简历生成后台工作台</span>
+</div>
+{% endblock %}

@@ -1,0 +1,377 @@
+:root {
+  --sidebar-bg: #f7f9fc;
+  --sidebar-border: #e6ebf2;
+  --sidebar-hover: #eef5ff;
+  --sidebar-active: #409eff;
+  --topbar-bg: #ffffff;
+  --workspace-bg: #f5f7fb;
+  --card-bg: #ffffff;
+  --card-border: #e8edf4;
+  --text-main: #243245;
+  --text-secondary: #7f8ea3;
+  --brand-blue: #409eff;
+  --brand-blue-deep: #2f7fd8;
+  --danger: #f56c6c;
+  --success: #67c23a;
+  --shadow-soft: 0 8px 24px rgba(31, 45, 61, 0.06);
+}
+
+html, body {
+  margin: 0;
+  min-width: 0 !important;
+  background: var(--workspace-bg);
+}
+
+body.ruoyi-admin {
+  color: var(--text-main);
+  min-width: 0 !important;
+  overflow-x: hidden;
+}
+
+body.ruoyi-admin *,
+body.ruoyi-admin *::before,
+body.ruoyi-admin *::after {
+  box-sizing: border-box;
+}
+
+body.ruoyi-admin #container.ruoyi-shell {
+  display: block !important;
+  min-height: 100vh;
+  background: var(--workspace-bg);
+  min-width: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+body.ruoyi-admin .ruoyi-sidebar-shell {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 220px;
+  background: var(--sidebar-bg);
+  border-right: 1px solid var(--sidebar-border);
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+}
+
+body.ruoyi-admin .ruoyi-sidebar-brand {
+  height: 72px;
+  display: flex;
+  align-items: center;
+  padding: 0 18px;
+  background: #ffffff;
+  border-bottom: 1px solid var(--sidebar-border);
+}
+
+.ruoyi-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ruoyi-brand-mark {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #69b2ff, #409eff);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+.ruoyi-brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.ruoyi-brand-text strong {
+  color: var(--text-main);
+  font-size: 16px;
+}
+
+.ruoyi-brand-text span {
+  color: var(--text-secondary);
+  font-size: 12px;
+}
+
+body.ruoyi-admin .ruoyi-sidebar-nav {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 18px 0;
+}
+
+.ruoyi-menu-title {
+  padding: 0 18px 14px;
+  font-size: 12px;
+  color: #94a3b8;
+  letter-spacing: 2px;
+}
+
+.ruoyi-menu-scroll {
+  overflow: auto;
+  padding: 0 12px 12px;
+}
+
+.ruoyi-menu-items {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ruoyi-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 42px;
+  padding: 0 14px;
+  border-radius: 10px;
+  color: #506176;
+  transition: background-color .18s ease, color .18s ease, box-shadow .18s ease;
+}
+
+.ruoyi-menu-item:hover {
+  background: var(--sidebar-hover);
+  color: var(--brand-blue-deep);
+}
+
+.ruoyi-menu-item.is-active {
+  background: linear-gradient(90deg, #e7f3ff, #f4f9ff);
+  color: var(--brand-blue-deep);
+  box-shadow: inset 3px 0 0 var(--sidebar-active);
+  font-weight: 700;
+}
+
+.menu-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: currentColor;
+  opacity: 0.7;
+}
+
+body.ruoyi-admin .ruoyi-main-shell {
+  margin-left: 220px;
+  width: calc(100% - 220px);
+  min-height: 100vh;
+  display: flex !important;
+  flex-direction: column;
+}
+
+body.ruoyi-admin .ruoyi-topbar {
+  height: 64px;
+  background: var(--topbar-bg);
+  border-bottom: 1px solid var(--card-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  box-shadow: 0 2px 12px rgba(31, 45, 61, 0.04);
+}
+
+.ruoyi-topbar-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.ruoyi-topbar-tools {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: var(--text-secondary);
+}
+
+.welcome-text strong {
+  color: var(--text-main);
+}
+
+.top-link,
+.top-link:visited {
+  color: var(--brand-blue-deep);
+}
+
+.danger-link {
+  color: var(--danger);
+  background: none;
+  border: 0;
+  padding: 0;
+}
+
+.ruoyi-workspace {
+  min-height: calc(100vh - 64px);
+  background: var(--workspace-bg);
+}
+
+.ruoyi-breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding: 16px 28px 0;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.ruoyi-breadcrumbs a {
+  color: var(--brand-blue-deep);
+}
+
+body.ruoyi-admin #content-start.ruoyi-page {
+  display: block;
+  width: 100%;
+  padding: 18px 28px 28px;
+}
+
+body.ruoyi-admin .ruoyi-page-card {
+  width: 100% !important;
+  margin: 0 !important;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  box-shadow: var(--shadow-soft);
+  padding: 26px;
+  min-height: 680px;
+}
+
+body.ruoyi-admin .ruoyi-page-card > h1 {
+  margin: 0 0 18px;
+  font-size: 24px;
+  color: var(--text-main);
+}
+
+body.ruoyi-admin #content,
+body.ruoyi-admin #content-main,
+body.ruoyi-admin #content-related,
+body.ruoyi-admin .dashboard #content,
+body.ruoyi-admin .dashboard #content-main,
+body.ruoyi-admin .dashboard #content-related,
+body.ruoyi-admin .colMS,
+body.ruoyi-admin .colM,
+body.ruoyi-admin .colSM,
+body.ruoyi-admin .colS {
+  float: none !important;
+  width: 100% !important;
+  margin: 0 !important;
+  min-width: 0 !important;
+  max-width: none !important;
+}
+
+body.ruoyi-admin .module,
+body.ruoyi-admin .inline-group,
+body.ruoyi-admin #changelist-filter,
+body.ruoyi-admin .results,
+body.ruoyi-admin .paginator,
+body.ruoyi-admin .submit-row {
+  border-radius: 12px;
+  border: 1px solid var(--card-border);
+  box-shadow: none;
+}
+
+body.ruoyi-admin .module h2,
+body.ruoyi-admin .module caption,
+body.ruoyi-admin .inline-group h2 {
+  background: #f7faff;
+  color: var(--text-main);
+  border-bottom: 1px solid var(--card-border);
+}
+
+body.ruoyi-admin .button,
+body.ruoyi-admin input[type="submit"],
+body.ruoyi-admin input[type="button"],
+body.ruoyi-admin a.button {
+  border-radius: 8px;
+  background: var(--brand-blue);
+  border: 1px solid var(--brand-blue);
+}
+
+body.ruoyi-admin .button.default,
+body.ruoyi-admin input[type="submit"].default {
+  background: var(--success);
+  border-color: var(--success);
+}
+
+.ruoyi-page-head {
+  margin-bottom: 20px;
+}
+
+.ruoyi-page-head h1 {
+  margin: 0 0 8px;
+  font-size: 26px;
+  color: var(--text-main);
+}
+
+.ruoyi-page-head p {
+  margin: 0;
+  color: var(--text-secondary);
+}
+
+.home-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.home-card {
+  display: block;
+  padding: 28px;
+  border-radius: 16px;
+  border: 1px solid var(--card-border);
+  background: linear-gradient(180deg, #ffffff, #f9fbff);
+  box-shadow: var(--shadow-soft);
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+
+.home-card:hover {
+  transform: translateY(-2px);
+  border-color: #d9e8fb;
+  box-shadow: 0 12px 24px rgba(64, 158, 255, 0.10);
+}
+
+.home-card-kicker {
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--brand-blue);
+  margin-bottom: 12px;
+}
+
+.home-card-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 10px;
+}
+
+.home-card-desc {
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+body.ruoyi-admin #footer {
+  display: none;
+}
+
+@media (max-width: 1100px) {
+  body.ruoyi-admin .ruoyi-sidebar-shell {
+    position: relative;
+    width: 100%;
+  }
+
+  body.ruoyi-admin .ruoyi-main-shell {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .home-grid {
+    grid-template-columns: 1fr;
+  }
+}
